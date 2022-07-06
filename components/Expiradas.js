@@ -1,4 +1,4 @@
-import react from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -10,30 +10,76 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import SelectDropdown from "react-native-select-dropdown";
-var tipos = ["Semestral", "Anual", "Mensual"];
+//import SelectDropdown from "react-native-select-dropdown";
+//import { IgnorePattern } from "react-native/Libraries/LogBox/LogBox";
+//var tipos = ["Semestral", "Anual", "Mensual"];
 
-export default function Comprar({route}) {
-  const Separator = () => <View style={styles.separator} />;
+
+export default function Comprar({ route }) {
+  const [mesesTranscurridos, setMesesTranscurridos] = useState(0);
+  const [fecha, setFecha] = useState("");
+
+  useEffect(() => {
+    fechaExpiracion();
+ }, []);
+
+
+  function fechaExpiracion() {
+    var fCompra = route.params.user["pase"]["fechaCompra"];
+
+    var mes = fCompra.substr(5, 2);
+    var anio = fCompra.substr(0, 4);
+    var dia = fCompra.substr(9, 2);
+
+    var mesesPase;
+    if (route.params.user["pase"]["tipoPase"] == "Semestral") {
+      mesesPase = 6;
+    } else if (route.params.user["pase"]["tipoPase"] == "Mensual") {
+      mesesPase = 1;
+    } else {
+      mesesPase = 12;
+    }
+
+    var res;
+    var today = new Date();
+    var mesActual = today.getMonth() + 1;
+
+    setMesesTranscurridos(mesActual - mes);
+
+    if (mesesPase == 12) {
+      anio = anio + 1;
+    } else {
+      mes = parseInt(mes) + parseInt(mesesPase);
+    }
+
+    // console.log("mesActual: "+mesActual);
+
+    setFecha(anio + "/" + mes + "/" + dia);
+  }
+
   return (
     <ScrollView>
       <View style={styles.container}>
         {/*<Text style={styles.titulo}>Suscripción de pases</Text>*/}
 
         <View style={styles.containerCantidad}>
-            <Text style={styles.subtitulo}>Usuario</Text>
-            <Text style={styles.subText}>{route.params.user["nombre"]}</Text>
-            <Text style={styles.subtitulo}>Tipo De Pase</Text>
-            <Text style={styles.subText}>{route.params.user["pase"]["tipoPase"]}</Text>
-            <Text style={styles.subtitulo}>Fecha De Compra</Text>
-            <Text style={styles.subText}>{route.params.user["pase"]["fechaCompra"]}</Text>
+          <Text style={styles.subtitulo}>Usuario</Text>
+          <Text style={styles.subText}>{route.params.user["nombre"]}</Text>
+          <Text style={styles.subtitulo}>Tipo De Pase</Text>
+          <Text style={styles.subText}>
+            {route.params.user["pase"]["tipoPase"]}
+          </Text>
+          <Text style={styles.subtitulo}>Fecha De Compra</Text>
+          <Text style={styles.subText}>
+            {route.params.user["pase"]["fechaCompra"]}
+          </Text>
         </View>
 
         <View style={styles.containerCantidad}>
-            <Text style={styles.subtitulo}>Fecha Expiración</Text>
-            <Text style={styles.subText}>01/09/2022</Text>
-            <Text style={styles.subtitulo}>Pases restantes</Text>
-            <Text style={styles.subText}>{route.params.user["pase"]["tipoPase"]}</Text>
+          <Text style={styles.subtitulo}>Fecha Expiración</Text>
+          <Text style={styles.subText}>{fecha}</Text>
+          <Text style={styles.subtitulo}>Meses Transcurridos</Text>
+          <Text style={styles.subText}>{mesesTranscurridos}</Text>
         </View>
       </View>
     </ScrollView>
@@ -43,17 +89,17 @@ export default function Comprar({route}) {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-    paddingTop:40,
+    paddingTop: 40,
     backgroundColor: "#fff",
     alignItems: "center",
   },
-  subText:{
-    backgroundColor:"#E2DCD6",
-    height:50,
-    textAlignVertical:"center",
-    paddingLeft:20,
-    paddingRight:20,
-    borderRadius:10
+  subText: {
+    backgroundColor: "#E2DCD6",
+    height: 50,
+    textAlignVertical: "center",
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 10,
   },
   containerCantidad: {
     padding: 50,
@@ -80,7 +126,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 25,
     width: 200,
-    textAlign:"center",
+    textAlign: "center",
     height: 50,
     backgroundColor: "#262626",
     borderWidth: 1,
@@ -100,11 +146,10 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "black",
     backgroundColor: "#ff8637",
-    marginBottom:50,
-    
+    marginBottom: 50,
   },
-  txtBtnLogin:{
-    fontSize:20,
-    fontWeight:"bold"
-  }
+  txtBtnLogin: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 });
