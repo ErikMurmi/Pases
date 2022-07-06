@@ -17,11 +17,13 @@ var tipos = ["Semestral", "Anual", "Mensual"];
 export default function Comprar({ route }) {
   const [cantidadPases, setCantidadPases] = useState(0);
   const [cantidadTotal, setCantidadTotal] = useState(0);
+  const [cupo, setCupo] = useState(0);
 
   function setValores(cPases){
     console.log("cPases: "+cPases);
     setCantidadPases(cPases);
-    setCantidadTotal(route.params.user["pase"]["valorPase"] * cPases)
+    setCantidadTotal(route.params.user["pase"]["valorPase"] * cPases);
+    setCupo(route.params.user["pase"]["cupo"]);
   }
 
   function comprar() {
@@ -29,6 +31,7 @@ export default function Comprar({ route }) {
       
       route.params.user["pase"]["cupo"] = route.params.user["pase"]["cupo"] - (cantidadPases*route.params.user["pase"]["valorPase"]);
       route.params.user["pase"]["pasesRestantes"] = route.params.user["pase"]["pasesRestantes"] - cantidadPases;
+      setCupo(route.params.user["pase"]["cupo"]);
       Alert.alert("Compra realizada exitosamente!");
     }else{
       Alert.alert("No tienes suficientes cupos para comprar estos pases!");
