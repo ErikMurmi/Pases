@@ -34,13 +34,14 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="Comprar"
-          component = {Comprar}
+          name="Comprar" 
+          component = {Comprar} options={{title: "Comprar pases"}}
         />
 
         <Stack.Screen
           name="Expiradas"
           component = {Expiradas}
+          options={{title: "Suscripciones expiradas"}}
         />
 
       </Stack.Navigator>

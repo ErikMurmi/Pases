@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Alert,Pressable } from "react-native";
 import { ScrollView } from "react-native-web";
 import Comprar from "./Comprar";
 
@@ -7,9 +7,10 @@ import Comprar from "./Comprar";
 
 export default function Home({ navigation,route }) {
   const Separator = () => <View style={styles.separator} />;
+  const SeparatorVisible = () => <View style={styles.separatorVisible} />;
   const logOut = ()=>{
-    route.params.login(false);
     navigation.navigate('Login');
+    route.params.logOut();
   }
 
   return (
@@ -21,37 +22,40 @@ export default function Home({ navigation,route }) {
         <Text style={styles.titulo}>Pases</Text>
 
         <View style={styles.buttonContainer}>
-          <Button
-            style={[styles.container, styles.button]}
-            onPress={() => Alert.alert("Button with adjusted color pressed")}
-            title="Activas"
-            color={"#23a7f2"}
-          />
-          <Separator />
-          <Button title="Expiradas" color={"#9c3f3c"} onPress={()=>navigation.navigate('Expiradas')} />
+          <Pressable style={[styles.btn]} 
+          onPress={() => Alert.alert("Button with adjusted color pressed")}>
+            <Text style={styles.txtBtnLogin}>Activas</Text>
+          </Pressable>
+          <SeparatorVisible/>
+          <Pressable style={[styles.btn]} 
+          onPress={()=>navigation.navigate('Expiradas')}>
+            <Text style={styles.txtBtnLogin}>Expiradas</Text>
+          </Pressable>
         </View>
 
         <View style={styles.paseContainer}>
-          <Text style={styles.paseMembers}>Tipo De Pase: Semestral</Text>
-          <Text style={styles.paseMembers}>Cupo Restante: 576</Text>
-          <Text style={styles.paseMembers}>Valor por pase: 0.087</Text>
-
-          <Text style={styles.paseMembers}>Fecha Compra: 01/03/2022</Text>
-          <Text style={styles.paseMembers}>Fecha Expiracion:</Text>
-          <Text style={styles.paseMembers}>Pases Restantes:</Text>
+          <Text style={styles.paseTitle}>Tipo</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.tipoPase}</Text>
+          <Text style={styles.paseTitle}>Fecha Compra</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.fechaCompra}</Text>
+          <Text style={styles.paseTitle}>Fecha Expiracion</Text>
+          <Text style={styles.paseMembers}>2022-0701</Text>
+          <Text style={styles.paseTitle}>Pases Restantes</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.pasesRestantes}</Text>
+          <Text style={styles.paseTitle}>Cupo Disponible</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.cupo}</Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button
-            style={[styles.container, styles.button]}
-            onPress={() => {
-              navigation.navigate("Comprar");
-            }}
-            title="Comprar"
-            color={"#21be5a"}
-          />
+          <Pressable style={[styles.btn,{backgroundColor:"#9EA93F"}]} 
+          onPress={() => {navigation.navigate("Comprar");}}>
+            <Text style={styles.btntext}>Comprar</Text>
+          </Pressable>
           <Separator />
-          <Button title="Gastar" color={"#fcba03"} />
+          <Pressable style={[styles.btn,{backgroundColor:"#E49273"}]} 
+          onPress={() => {navigation.navigate("Comprar");}}>
+            <Text style={styles.btntext}>Gastar</Text>
+          </Pressable>
         </View>
       </View>
     </>
@@ -67,8 +71,8 @@ const styles = StyleSheet.create({
   paseContainer: {
     width: "85%",
     borderRadius: 20,
-    padding:5,
-    backgroundColor: "#ffda35",
+    padding:20,
+    backgroundColor: "#EEC643",
   },
   paseMembers: {
     margin: 5,
@@ -77,9 +81,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "400",
   },
+  paseTitle:{
+    fontWeight:"bold",
+    paddingLeft:15,
+    fontSize:20
+  },
   buttonContainer: {
     flexDirection: "row",
-    margin: "5%",
+    margin: "7%",
     paddingHorizontal: "10%",
     paddingVertical: "3%",
     alignItems: "stretch",
@@ -90,6 +99,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
   },
+  separatorVisible: {
+    marginHorizontal: 10,
+    width:1,
+    height:"100%",
+    borderColor:"#00000",
+    borderWidth:.5
+  },
   separator: {
     marginHorizontal: 10,
   },
@@ -99,4 +115,20 @@ const styles = StyleSheet.create({
     paddingTop: "15%",
     marginLeft: "3%"
   },
+  btn: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 15,
+  }, 
+  btntext:{
+    fontSize:20,
+    color:'#fff',
+    fontWeight:"bold"
+  },
+  txtBtnLogin:{
+    fontSize:18,
+    color:'#000000'
+  }
 });

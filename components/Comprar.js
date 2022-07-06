@@ -18,7 +18,7 @@ export default function Comprar() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.titulo}>Comprar Pases</Text>
+        {/*<Text style={styles.titulo}>Comprar Pases</Text>*/}
 
         <View style={styles.containerSelect}>
             <Text style={styles.subtitulo}>Cupo Disponible</Text>
@@ -45,7 +45,7 @@ export default function Comprar() {
         <View style={styles.containerCantidad}>
           <Text style={[styles.subtitulo, {textAlign:"center"}]}>Cantidad</Text>
           <TextInput
-            placeholder="Cantidad"
+            placeholder="0"
             keyboardType="numeric"
             placeholderTextColor={"#fff3bc"}
             style={styles.input}
@@ -68,18 +68,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   containerSelect: {
-    padding: 50,
+    padding:60,
     borderColor: "#E2DCD6",
+    backgroundColor:'#ffd869',
     borderWidth: 1,
     margin: 10,
     marginBottom: 50,
+    marginTop:40,
+    borderRadius:25,
   },
   containerCantidad: {
-    padding: 50,
-    borderColor: "#E2DCD6",
+    padding: 40,
+    borderColor: "#ffd869",
     borderWidth: 1,
     margin: 10,
     marginBottom: 50,
+    borderRadius:25,
   },
   titulo: {
     marginTop: "15%",
@@ -123,6 +127,7 @@ const styles = StyleSheet.create({
   },
   txtBtnLogin:{
     fontSize:20,
-    fontWeight:"bold"
+    fontWeight:"bold",
+    color:'#f6f6f6'
   }
 });

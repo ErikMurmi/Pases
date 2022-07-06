@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Pressable, StyleSheet, TextInput, Text, View, Alert} from 'react-native';
 
 
@@ -8,13 +8,17 @@ import Colors from '../src/utils/colors';
 {/*---------Exportamos el componente---------*/ }
 
 
+<<<<<<< HEAD
 export function contenido({setLogged}){
+=======
+export function Contenido(props){
+>>>>>>> ce5abe6bae8b3ab0d7ea76faff31f44f2a43f758
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
-        {nombre:'EstefiR',clave:'estefi123',fechaCompra:'2022-03-01',tipoPase:'semestral'},
-        {nombre:'FrancisR',clave:'francis123',fechaCompra:'2022-03-03',tipoPase:'mensual'},
-        {nombre:'GustavoL',clave:'gustavo123',fechaCompra:'2022-04-01',tipoPase:'anual'},
+        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'semestral',pasesRestantes:44,cupo:'10'}},
+        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'mensual',pasesRestantes:22,cupo:'20'}},
+        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'anual',pasesRestantes:61,cupo:'12'}},
     ];
 
     function logIn(nombre,clave){
@@ -22,7 +26,8 @@ export function contenido({setLogged}){
         if(usuario==null){
             Alert.alert("Usuario no encontrado");
         }else{
-           setLogged(true);
+            props.logUsuario(usuario);
+            //props.setLogged(true);
         }
     }
 
@@ -39,7 +44,7 @@ export function contenido({setLogged}){
 
                 {/* Password */}
                 <TextInput name="cr" placeholder="Contraseña"  placeholderTextColor={"#fff3bc"}
-                secureTextEntry onChangeText={text => setPassword(text)}
+                 onChangeText={text => setPassword(text)}
                 style={styles.input}/>
 
                 <Pressable style={styles.btnLogin} onPress={()=>logIn(nombre,password)} >
@@ -59,10 +64,26 @@ export function contenido({setLogged}){
 export default function Auth({navigation}) {
 
     const [logged,setLogged] = useState(false);
+    const [usuario,setUsuario] = useState(null);
+    useEffect(()=>{
+        if(usuario!= null ){
+            setLogged(true);
+        }else{
+            setLogged(false);
+        }
+    });
+    function logOut(){
+        setLogged(false);
+        setUsuario(null); 
+    }
 
     return (
         <>
+<<<<<<< HEAD
             {logged? navigation.navigate('Home',{login:setLogged}) : contenido({setL:setLogged})}
+=======
+            {logged? navigation.navigate('Home',{logOut:logOut,user:usuario}) : <Contenido logUsuario ={setUsuario}></Contenido>}
+>>>>>>> ce5abe6bae8b3ab0d7ea76faff31f44f2a43f758
         </>
         
     )

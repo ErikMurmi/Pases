@@ -18,7 +18,7 @@ export default function Comprar() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.titulo}>Suscripción de pases</Text>
+        {/*<Text style={styles.titulo}>Suscripción de pases</Text>*/}
 
         <View style={styles.containerCantidad}>
             <Text style={styles.subtitulo}>Usuario</Text>
@@ -43,6 +43,7 @@ export default function Comprar() {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
+    paddingTop:40,
     backgroundColor: "#fff",
     alignItems: "center",
   },
@@ -56,10 +57,11 @@ const styles = StyleSheet.create({
   },
   containerCantidad: {
     padding: 50,
-    borderColor: "#E2DCD6",
+    borderColor: "#ffd869",
     borderWidth: 1,
     margin: 10,
     marginBottom: 50,
+    borderRadius: 25,
   },
   titulo: {
     marginTop: "15%",
