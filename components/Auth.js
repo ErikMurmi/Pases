@@ -1,29 +1,17 @@
 import React, { Component, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native';
 
+
 {/*----------Importamos los colores----------*/ }
 import Colors from '../src/utils/colors';
 
 {/*---------Exportamos el componente---------*/ }
 
-export default function Auth(props) {
 
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
-    const [nombre,setNombre] = useState('')
-
-    /*function logInUser(){
-        signInWithEmailAndPassword(auth,email,password)
-        .then(response =>{
-            const user = response.user;
-            console.log(user.email);
-            props.setLoggedIn(response);
-        })
-        .catch(error=>alert(error.message))
-    }*/
-
-    return (
-        <View style = {styles.container}>
+export function contenido(setLogged, {navigation}){
+    return(
+        <>
+            <View style = {styles.container}>
             <Text style={[styles.slogan, styles.titulo]}>INICIO</Text>
             <View style={styles.viewInputs}>
                 
@@ -37,7 +25,7 @@ export default function Auth(props) {
                 secureTextEntry onChangeText={text => setPassword(text)}
                 style={styles.input}/>
 
-                <Pressable style={styles.btnLogin} onPress={()=>props.login(true)} >
+                <Pressable style={styles.btnLogin} onPress={()=>setLogged(true)} >
                     <Text style={styles.txtBtnLogin}>Ingresar</Text>
                 </Pressable>
 
@@ -46,17 +34,40 @@ export default function Auth(props) {
                 </Pressable>                
             </View>
         </View>
+        </>
+    );
+
+}
+
+export default function Auth({navigation}) {
+
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const [nombre,setNombre] = useState('')
+
+    const [logged,setLogged] = useState(false);
+
+    return (
+        <>
+        {logged? navigation.navigate('Home') : contenido(setLogged, navigation)}
+        </>
+        
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        display: "flex",
+/*
+display: "flex",
         marginTop:"60%",
         marginHorizontal:"15%",
+*/
+
+const styles = StyleSheet.create({
+    container: {
+        height:'100%',
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        padding:60
     },
     
     slogan:{
