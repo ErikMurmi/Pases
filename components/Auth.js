@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Pressable, StyleSheet, TextInput, Text, View, Alert} from 'react-native';
 
 
@@ -12,9 +12,9 @@ export function Contenido(props){
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
-        {nombre:'EstefiR',clave:'estefi123',fechaCompra:'2022-03-01',tipoPase:'semestral'},
-        {nombre:'FrancisR',clave:'francis123',fechaCompra:'2022-03-03',tipoPase:'mensual'},
-        {nombre:'GustavoL',clave:'gustavo123',fechaCompra:'2022-04-01',tipoPase:'anual'},
+        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'semestral',pasesRestantes:44}},
+        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'mensual',pasesRestantes:22}},
+        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'anual',pasesRestantes:61}},
     ];
 
     function logIn(nombre,clave){
@@ -22,7 +22,8 @@ export function Contenido(props){
         if(usuario==null){
             Alert.alert("Usuario no encontrado");
         }else{
-           props.logedIn(true);
+            props.logUsuario(usuario);
+            //props.setLogged(true);
         }
     }
 
@@ -59,10 +60,22 @@ export function Contenido(props){
 export default function Auth({navigation}) {
 
     const [logged,setLogged] = useState(false);
+    const [usuario,setUsuario] = useState(null);
+    useEffect(()=>{
+        if(usuario!= null ){
+            setLogged(true);
+        }else{
+            setLogged(false);
+        }
+    });
+    function logOut(){
+        setLogged(false);
+        setUsuario(null); 
+    }
 
     return (
         <>
-            {logged? navigation.navigate('Home',{login:setLogged}) : <Contenido logedIn ={setLogged}></Contenido>}
+            {logged? navigation.navigate('Home',{logOut:logOut,user:usuario}) : <Contenido logUsuario ={setUsuario}></Contenido>}
         </>
         
     )

@@ -8,8 +8,8 @@ import Comprar from "./Comprar";
 export default function Home({ navigation,route }) {
   const Separator = () => <View style={styles.separator} />;
   const logOut = ()=>{
-    route.params.login(false);
     navigation.navigate('Login');
+    route.params.logOut();
   }
 
   return (
@@ -32,13 +32,14 @@ export default function Home({ navigation,route }) {
         </View>
 
         <View style={styles.paseContainer}>
-          <Text style={styles.paseMembers}>Tipo De Pase: Semestral</Text>
-          <Text style={styles.paseMembers}>Cupo Restante: 576</Text>
-          <Text style={styles.paseMembers}>Valor por pase: 0.087</Text>
-
-          <Text style={styles.paseMembers}>Fecha Compra: 01/03/2022</Text>
-          <Text style={styles.paseMembers}>Fecha Expiracion:</Text>
-          <Text style={styles.paseMembers}>Pases Restantes:</Text>
+          <Text style={styles.paseTitle}>Tipo</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.tipoPase}</Text>
+          <Text style={styles.paseTitle}>Pases Restantes</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.pasesRestantes}</Text>
+          <Text style={styles.paseTitle}>Fecha Compra</Text>
+          <Text style={styles.paseMembers}>{route.params.user.pase.fechaCompra}</Text>
+          <Text style={styles.paseTitle}>Fecha Expiracion</Text>
+          <Text style={styles.paseMembers}>2022-0701</Text>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   paseContainer: {
     width: "85%",
     borderRadius: 20,
-    padding:5,
+    padding:20,
     backgroundColor: "#ffda35",
   },
   paseMembers: {
@@ -76,6 +77,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 19,
     fontWeight: "400",
+  },
+  paseTitle:{
+    fontWeight:"bold",
+    paddingLeft:15,
+    fontSize:23
   },
   buttonContainer: {
     flexDirection: "row",
