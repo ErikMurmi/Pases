@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -9,11 +9,33 @@ import {
   Alert,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+//import { onChange } from "react-native-reanimated";
 
-import SelectDropdown from "react-native-select-dropdown";
+//import SelectDropdown from "react-native-select-dropdown";
 var tipos = ["Semestral", "Anual", "Mensual"];
 
-export default function Comprar() {
+export default function Comprar({ route }) {
+  const [cantidadPases, setCantidadPases] = useState(0);
+  const [cantidadTotal, setCantidadTotal] = useState(0);
+
+  function setValores(cPases){
+    console.log("cPases: "+cPases);
+    setCantidadPases(cPases);
+    setCantidadTotal(route.params.user["pase"]["valorPase"] * cPases)
+  }
+
+  function comprar() {
+    if(cantidadPases <= route.params.user["pase"]["pasesRestantes"]){
+      
+      route.params.user["pase"]["cupo"] = route.params.user["pase"]["cupo"] - (cantidadPases*route.params.user["pase"]["valorPase"]);
+      route.params.user["pase"]["pasesRestantes"] = route.params.user["pase"]["pasesRestantes"] - cantidadPases;
+      Alert.alert("Compra realizada exitosamente!");
+    }else{
+      Alert.alert("No tienes suficientes cupos para comprar estos pases!");
+    }
+
+  }
+
   const Separator = () => <View style={styles.separator} />;
   return (
     <ScrollView>
@@ -21,40 +43,37 @@ export default function Comprar() {
         {/*<Text style={styles.titulo}>Comprar Pases</Text>*/}
 
         <View style={styles.containerSelect}>
-            <Text style={styles.subtitulo}>Cupo Disponible</Text>
-            <Text style={{textAlign:"center", fontSize:20, fontWeight:"500"}}>10</Text>
-
-          {/* <SelectDropdown
-            data={tipos}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              // text represented after item is selected
-              // if data array is an array of objects then return selectedItem.property to render after item is selected
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              // text represented for each item in dropdown
-              // if data array is an array of objects then return item.property to represent item in dropdown
-              return item;
-            }}
-          /> */}
+          <Text style={styles.subtitulo}>Cupo Disponible</Text>
+          <Text
+            style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}
+          >
+            {route.params.user["pase"]["cupo"]}
+          </Text>
         </View>
 
         <View style={styles.containerCantidad}>
-          <Text style={[styles.subtitulo, {textAlign:"center"}]}>Cantidad</Text>
+          <Text style={[styles.subtitulo, { textAlign: "center" }]}>
+            Cantidad
+          </Text>
           <TextInput
             placeholder="0"
             keyboardType="numeric"
             placeholderTextColor={"#fff3bc"}
             style={styles.input}
+            onChangeText={(text) => setValores(text)}
           />
-          <Text style={{textAlign:"center"}}>Precio Total Cupo: 10</Text>
+          <Text style={{ textAlign: "center" }}>
+            Precio Total Cupo:{" "}
+            {cantidadTotal}
+          </Text>
         </View>
 
-        <Pressable style={[styles.btnLogin]}>
-          <Text style={styles.txtBtnLogin}>Comprar</Text>
+        <Pressable style={[styles.btnLogin]}
+        onPress={() => comprar()}>
+          <Text
+            style={styles.txtBtnLogin}>
+            Comprar
+          </Text>
         </Pressable>
       </View>
     </ScrollView>
@@ -68,14 +87,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   containerSelect: {
-    padding:60,
+    padding: 60,
     borderColor: "#E2DCD6",
-    backgroundColor:'#ffd869',
+    backgroundColor: "#ffd869",
     borderWidth: 1,
     margin: 10,
     marginBottom: 50,
-    marginTop:40,
-    borderRadius:25,
+    marginTop: 40,
+    borderRadius: 25,
   },
   containerCantidad: {
     padding: 40,
@@ -83,7 +102,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 10,
     marginBottom: 50,
-    borderRadius:25,
+    borderRadius: 25,
   },
   titulo: {
     marginTop: "15%",
@@ -102,7 +121,7 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: 25,
     width: 200,
-    textAlign:"center",
+    textAlign: "center",
     height: 50,
     backgroundColor: "#262626",
     borderWidth: 1,
@@ -122,12 +141,30 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "black",
     backgroundColor: "#ff8637",
-    marginBottom:50,
-    
+    marginBottom: 50,
   },
-  txtBtnLogin:{
-    fontSize:20,
-    fontWeight:"bold",
-    color:'#f6f6f6'
-  }
+  txtBtnLogin: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#f6f6f6",
+  },
 });
+
+{
+  /* <SelectDropdown
+            data={tipos}
+            onSelect={(selectedItem, index) => {
+              console.log(selectedItem, index);
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              // text represented after item is selected
+              // if data array is an array of objects then return selectedItem.property to render after item is selected
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              // text represented for each item in dropdown
+              // if data array is an array of objects then return item.property to represent item in dropdown
+              return item;
+            }}
+          /> */
+}

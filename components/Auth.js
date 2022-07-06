@@ -8,17 +8,13 @@ import Colors from '../src/utils/colors';
 {/*---------Exportamos el componente---------*/ }
 
 
-<<<<<<< HEAD
-export function contenido({setLogged}){
-=======
 export function Contenido(props){
->>>>>>> ce5abe6bae8b3ab0d7ea76faff31f44f2a43f758
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
-        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'semestral',pasesRestantes:44,cupo:'10'}},
-        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'mensual',pasesRestantes:22,cupo:'20'}},
-        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'anual',pasesRestantes:61,cupo:'12'}},
+        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'Semestral',pasesRestantes:576,cupo:'25', valorPase:'0.09'}},
+        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'Mensual',pasesRestantes:25,cupo:'50', valorPase:'0.26'}},
+        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'Anual',pasesRestantes:80,cupo:'80', valorPase:'0.0.08'}},
     ];
 
     function logIn(nombre,clave){
@@ -79,11 +75,7 @@ export default function Auth({navigation}) {
 
     return (
         <>
-<<<<<<< HEAD
-            {logged? navigation.navigate('Home',{login:setLogged}) : contenido({setL:setLogged})}
-=======
             {logged? navigation.navigate('Home',{logOut:logOut,user:usuario}) : <Contenido logUsuario ={setUsuario}></Contenido>}
->>>>>>> ce5abe6bae8b3ab0d7ea76faff31f44f2a43f758
         </>
         
     )

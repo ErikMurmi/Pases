@@ -1,11 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Alert,Pressable } from "react-native";
+import { StyleSheet, Text, View, Button, Alert, Pressable, LogBox } from "react-native";
 import { ScrollView } from "react-native-web";
 import Comprar from "./Comprar";
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 
-export default function Home({ navigation,route }) {
+
+export default function Home({ navigation, route }) {
   const Separator = () => <View style={styles.separator} />;
   const SeparatorVisible = () => <View style={styles.separatorVisible} />;
   const logOut = ()=>{
@@ -28,7 +32,7 @@ export default function Home({ navigation,route }) {
           </Pressable>
           <SeparatorVisible/>
           <Pressable style={[styles.btn]} 
-          onPress={()=>navigation.navigate('Expiradas')}>
+          onPress={()=>navigation.navigate('Expiradas', {user:route.params.user})}>
             <Text style={styles.txtBtnLogin}>Expiradas</Text>
           </Pressable>
         </View>
@@ -48,12 +52,12 @@ export default function Home({ navigation,route }) {
 
         <View style={styles.buttonContainer}>
           <Pressable style={[styles.btn,{backgroundColor:"#9EA93F"}]} 
-          onPress={() => {navigation.navigate("Comprar");}}>
-            <Text style={styles.btntext}>Comprar</Text>
+          onPress={() => {navigation.navigate("Comprar", {user: route.params.user});}}>
+            <Text style={styles.btntext}>Cambiar Suscripción</Text>
           </Pressable>
           <Separator />
           <Pressable style={[styles.btn,{backgroundColor:"#E49273"}]} 
-          onPress={() => {navigation.navigate("Comprar");}}>
+          onPress={() => {navigation.navigate("Comprar", {user: route.params.user});}}>
             <Text style={styles.btntext}>Gastar</Text>
           </Pressable>
         </View>

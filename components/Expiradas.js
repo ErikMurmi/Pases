@@ -13,7 +13,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
 var tipos = ["Semestral", "Anual", "Mensual"];
 
-export default function Comprar() {
+export default function Comprar({route}) {
   const Separator = () => <View style={styles.separator} />;
   return (
     <ScrollView>
@@ -22,18 +22,18 @@ export default function Comprar() {
 
         <View style={styles.containerCantidad}>
             <Text style={styles.subtitulo}>Usuario</Text>
-            <Text style={styles.subText}>Estefi R</Text>
+            <Text style={styles.subText}>{route.params.user["nombre"]}</Text>
             <Text style={styles.subtitulo}>Tipo De Pase</Text>
-            <Text style={styles.subText}>Semestral</Text>
+            <Text style={styles.subText}>{route.params.user["pase"]["tipoPase"]}</Text>
             <Text style={styles.subtitulo}>Fecha De Compra</Text>
-            <Text style={styles.subText}>01/03/2022</Text>
+            <Text style={styles.subText}>{route.params.user["pase"]["fechaCompra"]}</Text>
         </View>
 
         <View style={styles.containerCantidad}>
             <Text style={styles.subtitulo}>Fecha Expiración</Text>
             <Text style={styles.subText}>01/09/2022</Text>
-            <Text style={styles.subtitulo}>Pases Comprados</Text>
-            <Text style={styles.subText}>45</Text>
+            <Text style={styles.subtitulo}>Pases restantes</Text>
+            <Text style={styles.subText}>{route.params.user["pase"]["tipoPase"]}</Text>
         </View>
       </View>
     </ScrollView>
