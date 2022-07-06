@@ -12,9 +12,9 @@ export function Contenido(props){
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
-        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'semestral',pasesRestantes:44}},
-        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'mensual',pasesRestantes:22}},
-        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'anual',pasesRestantes:61}},
+        {nombre:'EstefiR',clave:'estefi123',pase:{fechaCompra:'2022-03-01',tipoPase:'semestral',pasesRestantes:44,cupo:'10'}},
+        {nombre:'FrancisR',clave:'francis123',pase:{fechaCompra:'2022-03-03',tipoPase:'mensual',pasesRestantes:22,cupo:'20'}},
+        {nombre:'GustavoL',clave:'gustavo123',pase:{fechaCompra:'2022-04-01',tipoPase:'anual',pasesRestantes:61,cupo:'12'}},
     ];
 
     function logIn(nombre,clave){
