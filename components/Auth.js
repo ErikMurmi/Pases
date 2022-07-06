@@ -24,12 +24,15 @@ export function Contenido(props){
     function logIn(nombre,clave){
         const usuario = usuarios.find(u=> u.nombre == nombre && u.clave == clave);
         console.log(usuario.pase.tipoPase, usuario)
+        dispatch(setFechaCompra(usuario.pase.fechaCompra))
         dispatch(setTipoPase(usuario.pase.tipoPase))
+        dispatch(setCupo(usuario.pase.cupo))
+        dispatch(setPaseRestantes(usuario.pase.pasesRestantes))
+        dispatch(setValorPase(usuario.pase.valorPase))
         if(usuario==null){
             Alert.alert("Usuario no encontrado");
         }else{
             props.logUsuario(usuario);
-            //props.setLogged(true);
         }
     }
 
