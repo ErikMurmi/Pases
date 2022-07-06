@@ -9,15 +9,20 @@ import {
   Alert,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import {setFechaCompra,setPaseRestantes,setTipoPase,setCupo,setValorPase} from '../slices/paseData'
+import { useDispatch } from 'react-redux';
+import {selectFechaCompra,selectPaseRestantes,selectTipoPase,selectCupo,selectValorPase} from '../slices/paseData'
+  import {useSelector} from 'react-redux';
 
 var pases = [{tipoPase:'Mensual',cupo:'25',pasesRestantes:96,fechaCompra:'1990-01-01',valorPase:'0.09'}, 
 {tipoPase:'Semestral',cupo:'50',pasesRestantes:576,fechaCompra:'1990-01-01',valorPase:'0.26'}, 
 {tipoPase:'Anual',cupo:'80',pasesRestantes:1052,fechaCompra:'1990-01-01',valorPase:'0.08'}];
 
 export default function Suscripcion({ route }) {
-
+  const dispatch = useDispatch();
   function comprar(tipo) {
     let fech = new Date();
+    let fecha = fech.getDate();
     let pase = null;
     if(tipo=="Mensual"){
       pase =  pases[0];
@@ -26,8 +31,13 @@ export default function Suscripcion({ route }) {
     }else if(tipo =="Anual"){
       pase =  pases[2];
     }
-    pase.fechaCompra = fech;
+    pase.fechaCompra = fecha;
     route.params.user.pase = pase;
+    dispatch(setFechaCompra(pase.fechaCompra))
+    dispatch(setTipoPase(pase.tipoPase))
+    dispatch(setCupo(pase.setCupo))
+    dispatch(setPaseRestantes(pase.pasesRestantes))
+    dispatch(setValorPase(pase.valorPase))
     Alert.alert("Cambio aplicado","Tu nuevo pase es " + route.params.user.pase.tipoPase);
   }
 

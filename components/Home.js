@@ -48,7 +48,7 @@ export default function Home({ navigation, route }) {
           <Pressable
             style={[styles.btn]}
             onPress={() =>
-              navigation.navigate("Expiradas", { user: route.params.user })
+              navigation.navigate("Expiracion", { user: route.params.user })
             }
           >
             <Text style={styles.txtBtnLogin}>Expiradas</Text>
@@ -82,7 +82,7 @@ export default function Home({ navigation, route }) {
               });
             }}
           >
-            <Text style={styles.btntext}>Cambiar Suscripción</Text>
+            <Text style={styles.btntext}>Comprar Nueva</Text>
           </Pressable>
           <Separator />
           <Pressable
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     borderRadius: 15,
   },
   btntext: {
