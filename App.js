@@ -23,11 +23,13 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component = {Auth}
+          options={{headerShown: false}}
         />
 
         <Stack.Screen
           name="Home"
           component = {Home}
+          options={{headerShown: false}}
         />
 
         <Stack.Screen
