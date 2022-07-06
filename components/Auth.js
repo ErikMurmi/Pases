@@ -1,5 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Pressable, StyleSheet, TextInput, Text, View, Alert} from 'react-native';
+import {setFechaCompra,setPaseRestantes,setTipoPase,setCupo,setValorPase} from '../slices/paseData'
+import { useDispatch } from 'react-redux';
 
 
 {/*----------Importamos los colores----------*/ }
@@ -9,6 +11,8 @@ import Colors from '../src/utils/colors';
 
 
 export function Contenido(props){
+    
+    const dispatch = useDispatch();
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
@@ -19,6 +23,8 @@ export function Contenido(props){
 
     function logIn(nombre,clave){
         const usuario = usuarios.find(u=> u.nombre == nombre && u.clave == clave);
+        console.log(usuario.pase.tipoPase, usuario)
+        dispatch(setTipoPase(usuario.pase.tipoPase))
         if(usuario==null){
             Alert.alert("Usuario no encontrado");
         }else{
@@ -59,11 +65,13 @@ export function Contenido(props){
 
 export default function Auth({navigation}) {
 
+    const dispatch = useDispatch();
     const [logged,setLogged] = useState(false);
     const [usuario,setUsuario] = useState(null);
     useEffect(()=>{
         if(usuario!= null ){
             setLogged(true);
+            dispatch(setTipoPase(usuario.pase.tipoPase))
         }else{
             setLogged(false);
         }
