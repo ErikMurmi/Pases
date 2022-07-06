@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput, Text, View, Alert} from 'react-native';
 
 
 {/*----------Importamos los colores----------*/ }
@@ -8,7 +8,24 @@ import Colors from '../src/utils/colors';
 {/*---------Exportamos el componente---------*/ }
 
 
-export function contenido(setLogged, {navigation}){
+export function contenido(setLogged){
+    const [password,setPassword] = useState('');
+    const [nombre,setNombre] = useState('');
+    let usuarios = [
+        {nombre:'EstefiR',clave:'estefi123',fechaCompra:'2022-03-01',tipoPase:'semestral'},
+        {nombre:'FrancisR',clave:'francis123',fechaCompra:'2022-03-03',tipoPase:'mensual'},
+        {nombre:'GustavoL',clave:'gustavo123',fechaCompra:'2022-04-01',tipoPase:'anual'},
+    ];
+
+    function logIn(nombre,clave){
+        const usuario = usuarios.find(u=> u.nombre == nombre && u.clave == clave);
+        if(usuario==null){
+            Alert.alert("Usuario no encontrado");
+        }else{
+           setLogged(true);
+        }
+    }
+
     return(
         <>
             <View style = {styles.container}>
@@ -17,15 +34,15 @@ export function contenido(setLogged, {navigation}){
                 
                 {/* E-mail */}
                 <TextInput placeholder="Nombre" placeholderTextColor={"#fff3bc"}
-                onChangeText={text => setEmail(text)}
+                onChangeText={text => setNombre(text)}
                  keyboardType="email-address" style={styles.input}/>
 
                 {/* Password */}
-                <TextInput placeholder="Contraseña"  placeholderTextColor={"#fff3bc"}
+                <TextInput name="cr" placeholder="Contraseña"  placeholderTextColor={"#fff3bc"}
                 secureTextEntry onChangeText={text => setPassword(text)}
                 style={styles.input}/>
 
-                <Pressable style={styles.btnLogin} onPress={()=>setLogged(true)} >
+                <Pressable style={styles.btnLogin} onPress={()=>logIn(nombre,password)} >
                     <Text style={styles.txtBtnLogin}>Ingresar</Text>
                 </Pressable>
 
@@ -41,15 +58,11 @@ export function contenido(setLogged, {navigation}){
 
 export default function Auth({navigation}) {
 
-    const [email,setEmail] = useState('')
-    const [password,setPassword] = useState('')
-    const [nombre,setNombre] = useState('')
-
     const [logged,setLogged] = useState(false);
 
     return (
         <>
-            {logged? navigation.navigate('Home',{login:setLogged}) : contenido(setLogged, navigation)}
+            {logged? navigation.navigate('Home',{login:setLogged}) : contenido(setLogged)}
         </>
         
     )

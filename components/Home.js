@@ -29,7 +29,7 @@ export default function Home({ navigation,route }) {
             style={[styles.container, styles.button]}
             onPress={() => Alert.alert("Button with adjusted color pressed")}
             title="Activas"
-            color={"#b8bb26"}
+            color={"#23a7f2"}
           />
           <Separator />
           <Button title="Expiradas" color={"#9c3f3c"} onPress={()=>verExpiradas} />
@@ -52,10 +52,10 @@ export default function Home({ navigation,route }) {
               navigation.navigate("Comprar");
             }}
             title="Comprar"
-            color={"#b8bb26"}
+            color={"#21be5a"}
           />
           <Separator />
-          <Button title="Gastar" color={"#9c3f3c"} />
+          <Button title="Gastar" color={"#fcba03"} />
         </View>
       </View>
     </>
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
   paseContainer: {
     width: "85%",
     borderRadius: 20,
-    backgroundColor: "#ebdbb2",
+    padding:5,
+    backgroundColor: "#ffda35",
   },
   paseMembers: {
-    backgroundColor: "#E3BC99",
-    margin: 10,
-    padding: 15,
+    margin: 5,
+    padding: 10,
     borderRadius: 10,
     fontSize: 19,
     fontWeight: "400",
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "10%",
     paddingVertical: "3%",
     alignItems: "stretch",
-    backgroundColor: "#ebdbb2",
     borderRadius: 15,
   },
   titulo: {
