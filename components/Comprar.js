@@ -10,11 +10,13 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 //import { onChange } from "react-native-reanimated";
-
+import {setFechaCompra,setPaseRestantes,setTipoPase,setCupo,setValorPase} from '../slices/paseData'
+import { useDispatch } from 'react-redux';
 //import SelectDropdown from "react-native-select-dropdown";
 var tipos = ["Semestral", "Anual", "Mensual"];
 
 export default function Comprar({ route }) {
+  const dispatch = useDispatch();
   const [cantidadPases, setCantidadPases] = useState(0);
   const [cantidadTotal, setCantidadTotal] = useState(0);
   const [cupo, setCupo] = useState(0);

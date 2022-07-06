@@ -10,12 +10,18 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native";
 import Comprar from "./Comprar";
+import {
+  selectFechaCompra,selectPaseRestantes,selectTipoPase,selectCupo,selectValorPase} from '../slices/paseData'
+  import { useDispatch ,useSelector} from 'react-redux';
 
 LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
 
 export default function Home({ navigation, route }) {
+
+  const tipoPase = useSelector(selectTipoPase);
+
   const Separator = () => <View style={styles.separator} />;
   const SeparatorVisible = () => <View style={styles.separatorVisible} />;
   const logOut = () => {
@@ -51,9 +57,7 @@ export default function Home({ navigation, route }) {
 
         <View style={styles.paseContainer}>
           <Text style={styles.paseTitle}>Tipo</Text>
-          <Text style={styles.paseMembers}>
-            {route.params.user.pase.tipoPase}
-          </Text>
+          <Text style={styles.paseMembers}>{tipoPase}</Text>
           <Text style={styles.paseTitle}>Fecha Compra</Text>
           <Text style={styles.paseMembers}>
             {route.params.user.pase.fechaCompra}
