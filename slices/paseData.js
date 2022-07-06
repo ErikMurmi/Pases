@@ -5,7 +5,8 @@ const initialState ={
     fechaCompra:null,
     tipoPase:null,
     pasesRestantes:null,
-    cupo:null, valorPase:null
+    cupo:null, 
+    valorPase:null
 }
 
 
@@ -34,9 +35,9 @@ export const paseData = createSlice({
 export const {setFechaCompra,setPaseRestantes,setTipoPase,setCupo,setValorPase} = paseData.actions;
 
 export const selectFechaCompra = (state)=>state.pase.fechaCompra;
-export const selectPaseRestantes = (state)=>state.pase.fechaCompra;
-export const selectTipoPase = (state)=>state.pase.fechaCompra;
-export const selectCupo = (state)=>state.pase.fechaCompra;
-export const selectValorPase = (state)=>state.pase.fechaCompra;
+export const selectPaseRestantes = (state)=>state.pase.pasesRestantes;
+export const selectTipoPase = (state)=>state.pase.tipoPase;
+export const selectCupo = (state)=>state.pase.cupo;
+export const selectValorPase = (state)=>state.pase.valorPase;
 
 export default paseData.reducer
