@@ -49,7 +49,7 @@ export default function Auth({navigation}) {
 
     return (
         <>
-            {logged? navigation.navigate('Home') : contenido(setLogged, navigation)}
+            {logged? navigation.navigate('Home',{login:setLogged}) : contenido(setLogged, navigation)}
         </>
         
     )

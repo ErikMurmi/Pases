@@ -3,10 +3,24 @@ import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { ScrollView } from "react-native-web";
 import Comprar from "./Comprar";
 
-export default function Home({ navigation }) {
+
+
+export default function Home({ navigation,route }) {
   const Separator = () => <View style={styles.separator} />;
+  const logOut = ()=>{
+    route.params.login(false);
+    navigation.navigate('Login');
+  }
+
+  function verExpiradas(){
+    navigation.navigate('Expiradas');
+  }
+
   return (
     <>
+       <View style={styles.salirContainer}>
+          <Button title="Salir" color={"#1e1e1e"} onPress={()=>logOut()}/>
+        </View>
       <View style={styles.container}>
         <Text style={styles.titulo}>Pases</Text>
 
@@ -18,7 +32,7 @@ export default function Home({ navigation }) {
             color={"#b8bb26"}
           />
           <Separator />
-          <Button title="Expiradas" color={"#9c3f3c"} />
+          <Button title="Expiradas" color={"#9c3f3c"} onPress={()=>verExpiradas} />
         </View>
 
         <View style={styles.paseContainer}>
@@ -50,7 +64,7 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    height: "100%",    
     backgroundColor: "#fff",
     alignItems: "center",
   },
@@ -77,7 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   titulo: {
-    marginTop: "15%",
     marginBottom: "3%",
     fontSize: 40,
     fontWeight: "bold",
@@ -85,7 +98,10 @@ const styles = StyleSheet.create({
   separator: {
     marginHorizontal: 10,
   },
-  button: {
-    borderRadius: 25,
+  salirContainer: {
+    alignItems:'flex-start',
+    backgroundColor: "#fff",
+    paddingTop: "15%",
+    marginLeft: "3%"
   },
 });
