@@ -75,7 +75,7 @@ export default function Auth({navigation}) {
 
     return (
         <>
-            {logged? navigation.navigate('Home',{logOut:logOut,user:usuario}) : <Contenido logUsuario ={setUsuario}></Contenido>}
+            {logged? navigation.navigate('Home',{logOut:logOut,user:usuario,setuser:setUsuario}) : <Contenido logUsuario ={setUsuario}></Contenido>}
         </>
         
     )

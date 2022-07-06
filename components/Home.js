@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect}from "react";
 import { StyleSheet, Text, View, Button, Alert, Pressable, LogBox } from "react-native";
 import { ScrollView } from "react-native-web";
 import Comprar from "./Comprar";
@@ -52,7 +52,7 @@ export default function Home({ navigation, route }) {
 
         <View style={styles.buttonContainer}>
           <Pressable style={[styles.btn,{backgroundColor:"#9EA93F"}]} 
-          onPress={() => {navigation.navigate("Comprar", {user: route.params.user});}}>
+          onPress={() => {navigation.navigate("CambiarSuscripcion", {user: route.params.user,actualizar:route.params.setuser});}}>
             <Text style={styles.btntext}>Cambiar Suscripción</Text>
           </Pressable>
           <Separator />

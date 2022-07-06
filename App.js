@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Comprar from './components/Comprar'
 import Auth from './components/Auth'
 import Expiradas from './components/Expiradas'
+import CambiarSuscripcion from './components/CambiarSuscripcion'
 import { useState } from 'react';
 import { ScrollView } from 'react-native-web';
 
@@ -42,6 +43,12 @@ export default function App() {
           name="Expiradas"
           component = {Expiradas}
           options={{title: "Suscripciones expiradas"}}
+        />
+
+      <Stack.Screen
+          name="CambiarSuscripcion"
+          component = {CambiarSuscripcion}
+          options={{title: "Cambiar suscripcion"}}
         />
 
       </Stack.Navigator>
