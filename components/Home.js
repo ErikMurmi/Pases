@@ -12,10 +12,6 @@ export default function Home({ navigation,route }) {
     navigation.navigate('Login');
   }
 
-  function verExpiradas(){
-    navigation.navigate('Expiradas');
-  }
-
   return (
     <>
        <View style={styles.salirContainer}>
@@ -32,7 +28,7 @@ export default function Home({ navigation,route }) {
             color={"#23a7f2"}
           />
           <Separator />
-          <Button title="Expiradas" color={"#9c3f3c"} onPress={()=>verExpiradas} />
+          <Button title="Expiradas" color={"#9c3f3c"} onPress={()=>navigation.navigate('Expiradas')} />
         </View>
 
         <View style={styles.paseContainer}>

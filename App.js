@@ -8,6 +8,7 @@ import { StatusBar} from 'expo-status-bar';
 import Home from './components/Home'
 import Comprar from './components/Comprar'
 import Auth from './components/Auth'
+import Expiradas from './components/Expiradas'
 import { useState } from 'react';
 import { ScrollView } from 'react-native-web';
 
@@ -35,6 +36,11 @@ export default function App() {
         <Stack.Screen
           name="Comprar"
           component = {Comprar}
+        />
+
+        <Stack.Screen
+          name="Expiradas"
+          component = {Expiradas}
         />
 
       </Stack.Navigator>

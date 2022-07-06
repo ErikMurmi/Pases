@@ -18,44 +18,23 @@ export default function Comprar() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.titulo}>Comprar Pases</Text>
+        <Text style={styles.titulo}>Suscripción de pases</Text>
 
-        <View style={styles.containerSelect}>
-            <Text style={styles.subtitulo}>Cupo Disponible</Text>
-            <Text style={{textAlign:"center", fontSize:20, fontWeight:"500"}}>10</Text>
-
-          {/* <SelectDropdown
-            data={tipos}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              // text represented after item is selected
-              // if data array is an array of objects then return selectedItem.property to render after item is selected
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              // text represented for each item in dropdown
-              // if data array is an array of objects then return item.property to represent item in dropdown
-              return item;
-            }}
-          /> */}
+        <View style={styles.containerCantidad}>
+            <Text style={styles.subtitulo}>Usuario</Text>
+            <Text style={styles.subText}>Estefi R</Text>
+            <Text style={styles.subtitulo}>Tipo De Pase</Text>
+            <Text style={styles.subText}>Semestral</Text>
+            <Text style={styles.subtitulo}>Fecha De Compra</Text>
+            <Text style={styles.subText}>01/03/2022</Text>
         </View>
 
         <View style={styles.containerCantidad}>
-          <Text style={[styles.subtitulo, {textAlign:"center"}]}>Cantidad</Text>
-          <TextInput
-            placeholder="Cantidad"
-            keyboardType="numeric"
-            placeholderTextColor={"#fff3bc"}
-            style={styles.input}
-          />
-          <Text style={{textAlign:"center"}}>Precio Total Cupo: 10</Text>
+            <Text style={styles.subtitulo}>Fecha Expiración</Text>
+            <Text style={styles.subText}>01/09/2022</Text>
+            <Text style={styles.subtitulo}>Pases Comprados</Text>
+            <Text style={styles.subText}>45</Text>
         </View>
-
-        <Pressable style={[styles.btnLogin]}>
-          <Text style={styles.txtBtnLogin}>Comprar</Text>
-        </Pressable>
       </View>
     </ScrollView>
   );
@@ -67,12 +46,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
   },
-  containerSelect: {
-    padding: 50,
-    borderColor: "#E2DCD6",
-    borderWidth: 1,
-    margin: 10,
-    marginBottom: 50,
+  subText:{
+    backgroundColor:"#E2DCD6",
+    height:50,
+    textAlignVertical:"center",
+    paddingLeft:20,
+    paddingRight:20,
+    borderRadius:10
   },
   containerCantidad: {
     padding: 50,
@@ -84,11 +64,11 @@ const styles = StyleSheet.create({
   titulo: {
     marginTop: "15%",
     marginBottom: "15%",
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: "bold",
   },
   subtitulo: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
   },
