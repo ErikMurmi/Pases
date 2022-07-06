@@ -1,81 +1,110 @@
-import React,{useEffect}from "react";
-import { StyleSheet, Text, View, Button, Alert, Pressable, LogBox } from "react-native";
-import { ScrollView } from "react-native-web";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  Pressable,
+  LogBox,
+} from "react-native";
+import { ScrollView } from "react-native";
 import Comprar from "./Comprar";
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
-
-
 
 export default function Home({ navigation, route }) {
   const Separator = () => <View style={styles.separator} />;
   const SeparatorVisible = () => <View style={styles.separatorVisible} />;
-  const logOut = ()=>{
-    navigation.navigate('Login');
+  const logOut = () => {
+    navigation.navigate("Login");
     route.params.logOut();
-  }
+  };
 
   return (
-    <>
-       <View style={styles.salirContainer}>
-          <Button title="Salir" color={"#1e1e1e"} onPress={()=>logOut()}/>
-        </View>
+    <ScrollView>
+      <View style={styles.salirContainer}>
+        <Button title="Salir" color={"#1e1e1e"} onPress={() => logOut()} />
+      </View>
       <View style={styles.container}>
         <Text style={styles.titulo}>Pases</Text>
 
         <View style={styles.buttonContainer}>
-          <Pressable style={[styles.btn]} 
-          onPress={() => Alert.alert("Button with adjusted color pressed")}>
+          <Pressable
+            style={[styles.btn]}
+            onPress={() => Alert.alert("Button with adjusted color pressed")}
+          >
             <Text style={styles.txtBtnLogin}>Activas</Text>
           </Pressable>
-          <SeparatorVisible/>
-          <Pressable style={[styles.btn]} 
-          onPress={()=>navigation.navigate('Expiradas', {user:route.params.user})}>
+          <SeparatorVisible />
+          <Pressable
+            style={[styles.btn]}
+            onPress={() =>
+              navigation.navigate("Expiradas", { user: route.params.user })
+            }
+          >
             <Text style={styles.txtBtnLogin}>Expiradas</Text>
           </Pressable>
         </View>
 
         <View style={styles.paseContainer}>
           <Text style={styles.paseTitle}>Tipo</Text>
-          <Text style={styles.paseMembers}>{route.params.user.pase.tipoPase}</Text>
+          <Text style={styles.paseMembers}>
+            {route.params.user.pase.tipoPase}
+          </Text>
           <Text style={styles.paseTitle}>Fecha Compra</Text>
-          <Text style={styles.paseMembers}>{route.params.user.pase.fechaCompra}</Text>
+          <Text style={styles.paseMembers}>
+            {route.params.user.pase.fechaCompra}
+          </Text>
           <Text style={styles.paseTitle}>Fecha Expiracion</Text>
           <Text style={styles.paseMembers}>2022-0701</Text>
           <Text style={styles.paseTitle}>Pases Restantes</Text>
-          <Text style={styles.paseMembers}>{route.params.user.pase.pasesRestantes}</Text>
+          <Text style={styles.paseMembers}>
+            {route.params.user.pase.pasesRestantes}
+          </Text>
           <Text style={styles.paseTitle}>Cupo Disponible</Text>
           <Text style={styles.paseMembers}>{route.params.user.pase.cupo}</Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <Pressable style={[styles.btn,{backgroundColor:"#9EA93F"}]} 
-          onPress={() => {navigation.navigate("CambiarSuscripcion", {user: route.params.user,actualizar:route.params.setuser});}}>
+          <Pressable
+            style={[styles.btn, { backgroundColor: "#9EA93F" }]}
+            onPress={() => {
+              navigation.navigate("CambiarSuscripcion", {
+                user: route.params.user,
+                actualizar: route.params.setuser,
+              });
+            }}
+          >
             <Text style={styles.btntext}>Cambiar Suscripción</Text>
           </Pressable>
           <Separator />
-          <Pressable style={[styles.btn,{backgroundColor:"#E49273"}]} 
-          onPress={() => {navigation.navigate("Comprar", {user: route.params.user});}}>
+          <Pressable
+            style={[styles.btn, { backgroundColor: "#E49273" }]}
+            onPress={() => {
+              navigation.navigate("Comprar", { user: route.params.user });
+            }}
+          >
             <Text style={styles.btntext}>Gastar</Text>
           </Pressable>
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",    
+    height: "100%",
     backgroundColor: "#fff",
     alignItems: "center",
   },
   paseContainer: {
     width: "85%",
     borderRadius: 20,
-    padding:20,
+    padding: 20,
     backgroundColor: "#EEC643",
   },
   paseMembers: {
@@ -85,10 +114,10 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "400",
   },
-  paseTitle:{
-    fontWeight:"bold",
-    paddingLeft:15,
-    fontSize:20
+  paseTitle: {
+    fontWeight: "bold",
+    paddingLeft: 15,
+    fontSize: 20,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -105,19 +134,19 @@ const styles = StyleSheet.create({
   },
   separatorVisible: {
     marginHorizontal: 10,
-    width:1,
-    height:"100%",
-    borderColor:"#00000",
-    borderWidth:.5
+    width: 1,
+    height: "100%",
+    borderColor: "#00000",
+    borderWidth: 0.5,
   },
   separator: {
     marginHorizontal: 10,
   },
   salirContainer: {
-    alignItems:'flex-start',
+    alignItems: "flex-start",
     backgroundColor: "#fff",
     paddingTop: "15%",
-    marginLeft: "3%"
+    marginLeft: "3%",
   },
   btn: {
     alignItems: "center",
@@ -125,14 +154,14 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 15,
-  }, 
-  btntext:{
-    fontSize:20,
-    color:'#fff',
-    fontWeight:"bold"
   },
-  txtBtnLogin:{
-    fontSize:18,
-    color:'#000000'
-  }
+  btntext: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  txtBtnLogin: {
+    fontSize: 18,
+    color: "#000000",
+  },
 });
