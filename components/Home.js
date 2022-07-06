@@ -21,6 +21,10 @@ LogBox.ignoreLogs([
 export default function Home({ navigation, route }) {
 
   const tipoPase = useSelector(selectTipoPase);
+  const FechaCompra = useSelector(selectFechaCompra);
+  const pasesRestantes = useSelector(selectPaseRestantes);
+  const cupo = useSelector(selectCupo);
+
 
   const Separator = () => <View style={styles.separator} />;
   const SeparatorVisible = () => <View style={styles.separatorVisible} />;
@@ -60,16 +64,14 @@ export default function Home({ navigation, route }) {
           <Text style={styles.paseMembers}>{tipoPase}</Text>
           <Text style={styles.paseTitle}>Fecha Compra</Text>
           <Text style={styles.paseMembers}>
-            {route.params.user.pase.fechaCompra}
+            {FechaCompra}
           </Text>
-          <Text style={styles.paseTitle}>Fecha Expiracion</Text>
-          <Text style={styles.paseMembers}>2022-0701</Text>
           <Text style={styles.paseTitle}>Pases Restantes</Text>
           <Text style={styles.paseMembers}>
-            {route.params.user.pase.pasesRestantes}
+            {pasesRestantes}
           </Text>
           <Text style={styles.paseTitle}>Cupo Disponible</Text>
-          <Text style={styles.paseMembers}>{route.params.user.pase.cupo}</Text>
+          <Text style={styles.paseMembers}>{cupo}</Text>
         </View>
 
         <View style={styles.buttonContainer}>

@@ -11,7 +11,9 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 //import { onChange } from "react-native-reanimated";
 import {setFechaCompra,setPaseRestantes,setTipoPase,setCupo,setValorPase} from '../slices/paseData'
-import { useDispatch } from 'react-redux';
+import {selectFechaCompra,selectPaseRestantes,selectTipoPase,selectCupo,selectValorPase} from '../slices/paseData'
+
+import { useDispatch,useSelector } from 'react-redux';
 //import SelectDropdown from "react-native-select-dropdown";
 var tipos = ["Semestral", "Anual", "Mensual"];
 
@@ -19,7 +21,9 @@ export default function Comprar({ route }) {
   const dispatch = useDispatch();
   const [cantidadPases, setCantidadPases] = useState(0);
   const [cantidadTotal, setCantidadTotal] = useState(0);
-  const [cupo, setCupo] = useState(0);
+
+  const cupo = useSelector(selectCupo);
+  const valorPase = useSelector(selectValorPase);
 
   function setValores(cPases){
     console.log("cPases: "+cPases);
@@ -30,10 +34,10 @@ export default function Comprar({ route }) {
 
   function comprar() {
     if(cantidadPases <= route.params.user["pase"]["pasesRestantes"]){
-      
-      route.params.user["pase"]["cupo"] = route.params.user["pase"]["cupo"] - (cantidadPases*route.params.user["pase"]["valorPase"]);
-      route.params.user["pase"]["pasesRestantes"] = route.params.user["pase"]["pasesRestantes"] - cantidadPases;
-      setCupo(route.params.user["pase"]["cupo"]);
+      let cup = cupo - (cantidadPases*valorPase);
+      dispatch(setCupo(cup));
+      let pas= route.params.user["pase"]["pasesRestantes"] - cantidadPases;
+      dispatch(setPaseRestantes(pas))
       Alert.alert("Compra realizada exitosamente!");
     }else{
       Alert.alert("No tienes suficientes cupos para comprar estos pases!");
@@ -52,7 +56,7 @@ export default function Comprar({ route }) {
           <Text
             style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}
           >
-            {route.params.user["pase"]["cupo"]}
+            {cupo}
           </Text>
         </View>
 
