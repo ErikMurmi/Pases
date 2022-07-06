@@ -8,7 +8,7 @@ import Colors from '../src/utils/colors';
 {/*---------Exportamos el componente---------*/ }
 
 
-export function contenido(setLogged){
+export function Contenido(props){
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
@@ -22,7 +22,7 @@ export function contenido(setLogged){
         if(usuario==null){
             Alert.alert("Usuario no encontrado");
         }else{
-           setLogged(true);
+           props.logedIn(true);
         }
     }
 
@@ -39,7 +39,7 @@ export function contenido(setLogged){
 
                 {/* Password */}
                 <TextInput name="cr" placeholder="Contraseña"  placeholderTextColor={"#fff3bc"}
-                secureTextEntry onChangeText={text => setPassword(text)}
+                 onChangeText={text => setPassword(text)}
                 style={styles.input}/>
 
                 <Pressable style={styles.btnLogin} onPress={()=>logIn(nombre,password)} >
@@ -62,7 +62,7 @@ export default function Auth({navigation}) {
 
     return (
         <>
-            {logged? navigation.navigate('Home',{login:setLogged}) : contenido(setLogged)}
+            {logged? navigation.navigate('Home',{login:setLogged}) : <Contenido logedIn ={setLogged}></Contenido>}
         </>
         
     )
