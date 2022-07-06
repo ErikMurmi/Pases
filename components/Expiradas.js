@@ -10,31 +10,34 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-//import SelectDropdown from "react-native-select-dropdown";
-//import { IgnorePattern } from "react-native/Libraries/LogBox/LogBox";
-//var tipos = ["Semestral", "Anual", "Mensual"];
+import {
+  selectFechaCompra,selectPaseRestantes,selectTipoPase,selectCupo,selectValorPase} from '../slices/paseData'
+  import { useDispatch ,useSelector} from 'react-redux';
 
 
-export default function Comprar({ route }) {
+export default function Expiradas({ route }) {
   const [mesesTranscurridos, setMesesTranscurridos] = useState(0);
   const [fecha, setFecha] = useState("");
-
+  const tipoPase = useSelector(selectTipoPase);
+  const FechaCompra = useSelector(selectFechaCompra);
+  const pasesRestantes = useSelector(selectPaseRestantes);
+  const cupo = useSelector(selectCupo);
   useEffect(() => {
     fechaExpiracion();
  }, []);
 
 
   function fechaExpiracion() {
-    var fCompra = route.params.user["pase"]["fechaCompra"];
+    var fCompra = FechaCompra;
 
     var mes = fCompra.substr(5, 2);
     var anio = fCompra.substr(0, 4);
     var dia = fCompra.substr(9, 2);
 
     var mesesPase;
-    if (route.params.user["pase"]["tipoPase"] == "Semestral") {
+    if (tipoPase == "Semestral") {
       mesesPase = 6;
-    } else if (route.params.user["pase"]["tipoPase"] == "Mensual") {
+    } else if (tipoPase == "Mensual") {
       mesesPase = 1;
     } else {
       mesesPase = 12;
@@ -67,11 +70,11 @@ export default function Comprar({ route }) {
           <Text style={styles.subText}>{route.params.user["nombre"]}</Text>
           <Text style={styles.subtitulo}>Tipo De Pase</Text>
           <Text style={styles.subText}>
-            {route.params.user["pase"]["tipoPase"]}
+            {tipoPase}
           </Text>
           <Text style={styles.subtitulo}>Fecha De Compra</Text>
           <Text style={styles.subText}>
-            {route.params.user["pase"]["fechaCompra"]}
+            {FechaCompra}
           </Text>
         </View>
 

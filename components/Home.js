@@ -52,7 +52,7 @@ export default function Home({ navigation, route }) {
           <Pressable
             style={[styles.btn]}
             onPress={() =>
-              navigation.navigate("Expiracion", { user: route.params.user })
+              navigation.navigate("Expiradas", { user: route.params.user })
             }
           >
             <Text style={styles.txtBtnLogin}>Expiradas</Text>

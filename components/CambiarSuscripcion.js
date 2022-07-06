@@ -21,8 +21,16 @@ var pases = [{tipoPase:'Mensual',cupo:'25',pasesRestantes:96,fechaCompra:'1990-0
 export default function Suscripcion({ route }) {
   const dispatch = useDispatch();
   function comprar(tipo) {
-    let fech = new Date();
-    let fecha = fech.getDate();
+    var fech = new Date();
+    let mes = fech.getMonth();
+    let dia = fech.getDay();
+    if(mes<9){
+      mes = "0"+mes;
+    }
+    if(dia<9){
+      dia = "0"+dia;
+    }
+    let fecha = fech.getFullYear()+'-'+mes+'-'+dia;
     let pase = null;
     if(tipo=="Mensual"){
       pase =  pases[0];
@@ -35,7 +43,7 @@ export default function Suscripcion({ route }) {
     route.params.user.pase = pase;
     dispatch(setFechaCompra(pase.fechaCompra))
     dispatch(setTipoPase(pase.tipoPase))
-    dispatch(setCupo(pase.setCupo))
+    dispatch(setCupo(pase.cupo))
     dispatch(setPaseRestantes(pase.pasesRestantes))
     dispatch(setValorPase(pase.valorPase))
     Alert.alert("Cambio aplicado","Tu nuevo pase es " + route.params.user.pase.tipoPase);
