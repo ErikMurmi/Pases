@@ -8,7 +8,7 @@ import Colors from '../src/utils/colors';
 {/*---------Exportamos el componente---------*/ }
 
 
-export function contenido(setLogged){
+export function contenido({setLogged}){
     const [password,setPassword] = useState('');
     const [nombre,setNombre] = useState('');
     let usuarios = [
@@ -62,7 +62,7 @@ export default function Auth({navigation}) {
 
     return (
         <>
-            {logged? navigation.navigate('Home',{login:setLogged}) : contenido(setLogged)}
+            {logged? navigation.navigate('Home',{login:setLogged}) : contenido({setL:setLogged})}
         </>
         
     )
